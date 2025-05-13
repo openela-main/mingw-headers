@@ -9,11 +9,11 @@
 %global bundle_dummy_pthread_headers 0
 
 Name:           mingw-headers
-Version:        11.0.1
+Version:        12.0.0
 Release:        3%{?dist}
 Summary:        Win32/Win64 header files
 
-License:        Public Domain and LGPLv2+ and ZPLv2.1
+License:        BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND ZPL-2.1 AND MIT-Khronos-old AND LicenseRef-Fedora-Public-Domain
 URL:            http://mingw-w64.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/mingw-w64/mingw-w64-v%{version}%{?pre:-%{pre}}.tar.bz2
 
@@ -71,6 +71,8 @@ MinGW Windows cross-compiler Win64 header files.
 
 
 %build
+export MINGW32_CONFIGURE_ARGS="--with-default-msvcrt=msvcrt"
+export MINGW64_CONFIGURE_ARGS="--with-default-msvcrt=msvcrt"
 export UCRT64_CONFIGURE_ARGS="--with-default-msvcrt=ucrt"
 
 pushd mingw-w64-headers
@@ -111,6 +113,15 @@ rm -f %{buildroot}%{ucrt64_includedir}/pthread_unistd.h
 
 
 %changelog
+* Tue Sep 24 2024 Sandro Mani <manisandro@gmail.com> - 12.0.0-3
+- Pass --with-default-msvcrt=msvcrt when building mingw32/64-headers
+
+* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+
+* Tue Jul 16 2024 Sandro Mani <manisandro@gmail.com> - 12.0.0-1
+- Update to 12.0.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
